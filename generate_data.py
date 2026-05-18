@@ -1,19 +1,18 @@
 import psycopg2
 from faker import Faker
 import random
+import os
+from dotenv import load_dotenv
 
-# -------------------------------
-# CONFIG (EDIT THIS)
-# -------------------------------
-DB_NAME = "ecommerce"
-DB_USER = "postgres"
-DB_PASSWORD = "Kjayavishal"
-DB_HOST = "localhost"
-DB_PORT = "5432"
+load_dotenv()
 
-# -------------------------------
-# INIT
-# -------------------------------
+DB_NAME = os.getenv("DB_NAME")
+DB_USER = os.getenv("DB_USER")
+DB_PASSWORD = os.getenv("DB_PASSWORD")
+DB_HOST = os.getenv("DB_HOST")
+DB_PORT = os.getenv("DB_PORT")
+
+
 fake = Faker()
 
 conn = psycopg2.connect(
@@ -29,9 +28,7 @@ cursor = conn.cursor()
 BATCH_SIZE = 1000
 
 
-# -------------------------------
-# INSERT PRODUCTS (10K)
-# -------------------------------
+
 def insert_products():
     print("Inserting products...")
     products = []
@@ -51,9 +48,7 @@ def insert_products():
     print("✅ Products inserted")
 
 
-# -------------------------------
-# INSERT USERS (500K)
-# -------------------------------
+
 def insert_users():
     print("Inserting users...")
 
@@ -82,9 +77,7 @@ def insert_users():
     print("✅ Users inserted")
 
 
-# -------------------------------
-# INSERT ORDERS (1M)
-# -------------------------------
+
 def insert_orders():
     print("Inserting orders...")
 
@@ -114,9 +107,7 @@ def insert_orders():
     print("✅ Orders inserted")
 
 
-# -------------------------------
-# INSERT ORDER ITEMS (2M)
-# -------------------------------
+
 def insert_order_items():
     print("Inserting order_items...")
 
@@ -145,14 +136,12 @@ def insert_order_items():
     print("✅ Order items inserted")
 
 
-# -------------------------------
-# MAIN EXECUTION
-# -------------------------------
+
 if __name__ == "__main__":
     # insert_products()
     # insert_users()
     # insert_orders()
-    insert_order_items()
+    # insert_order_items()
 
     cursor.close()
     conn.close()
